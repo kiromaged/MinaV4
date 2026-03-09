@@ -6,47 +6,17 @@ import { Slider } from "@/components/ui/slider";
 
 gsap.registerPlugin(ScrollTrigger);
 
+const NATURE_ESCAPE_VIDEO = "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4";
+
 const videos = [
-  {
-    id: 1,
-    src: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
-    title: "Nature Escape",
-  },
-  {
-    id: 2,
-    src: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
-    title: "Urban Stories",
-  },
-  {
-    id: 3,
-    src: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4",
-    title: "Adventure",
-  },
-  {
-    id: 4,
-    src: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4",
-    title: "Journey",
-  },
-  {
-    id: 5,
-    src: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4",
-    title: "Moments",
-  },
-  {
-    id: 6,
-    src: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4",
-    title: "Dreams",
-  },
-  {
-    id: 7,
-    src: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/SubaruOutbackOnStreetAndDirt.mp4",
-    title: "Motion",
-  },
-  {
-    id: 8,
-    src: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4",
-    title: "Cinematic",
-  },
+  { id: 1, src: NATURE_ESCAPE_VIDEO, title: "Nature Escape" },
+  { id: 2, src: NATURE_ESCAPE_VIDEO, title: "Urban Stories" },
+  { id: 3, src: NATURE_ESCAPE_VIDEO, title: "Adventure" },
+  { id: 4, src: NATURE_ESCAPE_VIDEO, title: "Journey" },
+  { id: 5, src: NATURE_ESCAPE_VIDEO, title: "Moments" },
+  { id: 6, src: NATURE_ESCAPE_VIDEO, title: "Dreams" },
+  { id: 7, src: NATURE_ESCAPE_VIDEO, title: "Motion" },
+  { id: 8, src: NATURE_ESCAPE_VIDEO, title: "Cinematic" },
 ];
 
 interface VideoCardProps {
@@ -124,8 +94,10 @@ const VideoCard = ({ video, index }: VideoCardProps) => {
         ref={videoRef}
         src={video.src}
         muted={isMuted}
+        autoPlay
         loop
         playsInline
+        preload="none"
         className="w-full h-full object-cover"
       />
       
