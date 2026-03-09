@@ -97,7 +97,7 @@ const VideoCard = ({ video, index }: VideoCardProps) => {
         autoPlay
         loop
         playsInline
-        preload="none"
+        preload="auto"
         className="w-full h-full object-cover"
       />
       
