@@ -59,15 +59,29 @@ const VideoCard = ({ video, index }: VideoCardProps) => {
     const cardEl = cardRef.current;
     if (!videoEl || !cardEl) return;
 
-    ScrollTrigger.create({
-      trigger: cardEl,
-      start: "top 90%",
-      end: "bottom 10%",
-      onEnter: () => videoEl.play(),
-      onLeave: () => videoEl.pause(),
-      onEnterBack: () => videoEl.play(),
-      onLeaveBack: () => videoEl.pause(),
-    });
+    // Ensure muted is set at the DOM level for Safari/iOS autoplay compatibility
+    videoEl.muted = true;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            videoEl.play().catch(() => {
+              // Autoplay blocked by browser — silently ignore
+            });
+          } else {
+            videoEl.pause();
+          }
+        });
+      },
+      { threshold: 0.25 } // play when 25% of card is visible
+    );
+
+    observer.observe(cardEl);
+
+    return () => {
+      observer.disconnect();
+    };
   }, []);
 
   const toggleMute = () => {
@@ -93,11 +107,10 @@ const VideoCard = ({ video, index }: VideoCardProps) => {
       <video
         ref={videoRef}
         src={video.src}
-        muted={isMuted}
-        autoPlay
+        muted
         loop
         playsInline
-        preload="auto"
+        preload="metadata"
         className="w-full h-full object-cover"
       />
       
